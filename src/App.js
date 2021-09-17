@@ -18,6 +18,7 @@ function App() {
         });
         axios.get('https://613744d3eac1410017c1826c.mockapi.io/cart').then((res)=>{
             setCartItems(res.data);
+
         });
 
     },[]);
@@ -25,11 +26,13 @@ function App() {
     const onAddToCart =(obj) =>{
         axios.post('https://613744d3eac1410017c1826c.mockapi.io/cart', obj);
         setCartItems(prev=>[...prev , obj]);
+
     };
     const onRemoveItem=(id) =>{
         axios.delete(`https://613744d3eac1410017c1826c.mockapi.io/cart/${id}`);
-        setCartItems(prev=>[...prev , id]);
-    };
+        setCartItems((prev) => prev.filter((item) => item.id !== id));
+        console.log(id)
+    }
 
 
     const [cartOpened, setCartOpened]=React.useState(false);
